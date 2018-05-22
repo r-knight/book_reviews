@@ -1,5 +1,5 @@
 from django.db import models
-from apps.users.models import *
+from ..users.models import *
 
 class BookManager(models.Manager):
     def basic_validator(self, ReqSession, ReqPost):
