@@ -11,6 +11,13 @@
 				<a href='/books/list'>Home</a>
 				<a href='/users/logout'>Logout</a>
 			</div>
+			{% if messages %}
+				<ul class='errors'>
+				{% for message in messages %}
+					<li><p class='error_message'> {{message}} </p></li>
+				{% endfor %}
+				</ul>
+			{% endif %}
 			<div class='formContainer'>
 				<h3>Add a New Book Title and a Review:</h3>
 				<form class='review_new' action='/books/process_book' method='POST'>
