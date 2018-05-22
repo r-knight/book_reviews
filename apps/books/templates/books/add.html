@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+	<head>
+		<title>Books - List</title>
+	</head>
+	<body>
+		<div class='wrapper'>
+			<div class='topbar'>
+				<h4>Welcome, {{user.first_name}}!</h4>
+				<a href='/books/list'>Home</a>
+				<a href='/users/logout'>Logout</a>
+			</div>
+			<div class='formContainer'>
+				<h3>Add a New Book Title and a Review:</h3>
+				<form class='review_new' action='/books/process_book' method='POST'>
+					{% csrf_token %}
+					<label for='book_title'>Book Title:</label>
+					<input type='text' name='book_title' id='book_title'>
+					<label for='new_author'>Choose from the list:</label>
+					<select name='existing_author'>
+						<option value="" disabled selected>Select an Author</option>
+						{% for author in authors %}
+							<option value={{author.id}}>{{author.name}}</option>
+						{% endfor %}
+					</select>
+					<label for='new_author'>Or add a new author:</label>
+					<input type='text' name='new_author' id='new_author'>
+					<label for='review_text'>Review:</label>
+					<textarea name='review_text' id='review_text' cols=45 rows=5></textarea>
+					<label for='rating'></label>
+					<input type='number' name='rating' id='rating' min=1 max=5 value=3>
+					<input type='submit' id='submit_review' name='submit_review' value='Add Book and Review'>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

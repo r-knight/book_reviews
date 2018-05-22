@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+	<head>
+		<title>Books - List</title>
+	</head>
+	<body>
+		<div class='wrapper'>
+			<div class='topbar'>
+				<a href='/books/list'>Home</a>
+				<a href='/users/logout'>Logout</a>
+			</div>
+			{% if messages %}
+				<ul class='errors'>
+				{% for message in messages %}
+					<li><p class='error_message'> {{message}} </p></li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+			<div class='review_info'>
+				<h1>Review information:</h1>
+				<h2>{{review.book.title}}</h2>
+				<p>Author: {{review.book.author.name}}</p>
+				<p>Review ID#: {{review.id}}</p>
+			</div>
+			<div class='formContainer'>
+				<h3>Edit Review:</h3>
+				<form class='edit' action='/books/process_edit' method='POST'>
+					{% csrf_token %}
+					<textarea name='review_text' id='review_text' cols=45 rows=5>{{review.content}}</textarea>
+					<label for='rating'></label>
+					<input type='number' name='rating' id='rating' min=1 max=5 value={{review.rating}}>
+					<input type='submit' id='submit_review' name='submit_review' value='Edit Review'>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

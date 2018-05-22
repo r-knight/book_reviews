@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+	<head>
+		<title>Books - List</title>
+	</head>
+	<body>
+		<div class='wrapper'>
+			<div class='topbar'>
+				<h4>Welcome, {{user.first_name}}!</h4>
+				<a href='/books/add'>Add a book and review</a>
+				<a href='/users/logout'>Logout</a>
+			</div>
+			<div class='recentContainer'>
+				<h3>Recent Book Reviews:</h3>
+                {% if recent %}
+					{% for review in recent %}
+						<div class='book_review'>
+							<a href='/books/{{review.book.id}}'>{{review.book.title}}</a>
+							<p>{{review.rating}}/5</p>
+							{% if not review.reviewer.id == 0 %}
+								<p><a href='/users/view/{{review.reviewer.id}}'>{{review.reviewer.first_name}}</a> says: {{review.content}}</p>
+								<p>Posted on {{review.created_at}}</p>
+                                {% if not review.created_at == review.updated_at %}
+									<p>Last updated on {{review.updated_at}}</p>
+								{% endif %}
+								{% if request.session.id == review.reviewer.id %}
+									<a href='/books/{{review.id}}/edit'>Edit this review</a>
+									<a href='/books/{{review.id}}/destroy'>Delete this review</a>
+								{% endif %}
+							{% else %}
+								<p>Guest user says: {{review.content}}</p>
+								<p>Posted on {{review.created_at}}</p>
+							{% endif %}
+						</div>
+					{% endfor %}
+				{% else %}
+					<p>No reviews yet. You can be the first!</p>
+				{% endif %}
+			</div>
+			<div class='fullListContainer'>
+				<h3>Other books with reviews</h3>
+				{% if books %}
+					<ul class='book_list'>
+					{% for book in books %}
+						<li><a href='books/{{book.id}}'>{{book.title}}</a></li>
+					{% endfor %}
+					</ul>
+				{% else %}
+					<p> No books yet. Submit a review now to be the first!</p>
+				{% endif %}
+			</div>
+		</div>
+	</body>
+</html>

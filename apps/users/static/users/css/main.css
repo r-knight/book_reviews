@@ -1,0 +1,25 @@
+.wrapper{
+	width:700px;
+}
+.registrationContainer, .loginContainer{
+	width:275px;
+    margin-right:30px;
+	display: inline-block;
+    vertical-align: top;
+}
+
+form{
+	width:175px;
+}
+input{
+	margin-bottom:10px;
+}
+#submit{
+	margin-left:93px;
+}
+#e_submit{
+	margin-left:110px;
+}
+.error_message{
+	color:red;
+}

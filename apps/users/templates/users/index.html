@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+	<head>
+		<title>Login / Registration - Home</title>
+        {% load static %}
+		<link rel="stylesheet" type="text/css" href="{% static 'users/css/main.css' %}">
+	</head>
+	<body>
+		<div class='wrapper'>
+			{% if messages %}
+				<div class='errors'>
+				{% for message in messages %}
+					<p class='error_message'> {{message}} </p>
+				{% endfor %}
+				</div>
+			{% endif %}
+			<div class='registrationContainer'>
+				<h3>Register now!</h3>
+				<form action='/register' method='POST'>
+					{% csrf_token %}
+					<label for='first_name'>First Name:</label>
+					<input type='text' name='first_name' id='first_name'>
+					<label for='last_name'>Last Name:</label>
+					<input type='text' name='last_name' id='last_name'>
+					<label for='email'>Email:</label>
+					<input type='text' name='email' id='email'>
+					<label for='password'>Password:</label>
+					<input type='password' name='password' id='password'>
+					<label for='password_confirm'>Confirm Password:</label>
+					<input type='password' name='password_confirm' id='password_confirm'>
+					<input type='submit' name='submit' id='submit' value='Register!'>
+				</form>
+			</div>
+			<div class='loginContainer'>
+				<h3>Already registered? Log in now!</h3>
+				<form action='/login' method='POST'>
+					{% csrf_token %}
+					<label for='e_email'>Email:</label>
+					<input type='text' name='e_email' id='e_email'>
+					<label for='e_password'>Password:</label>
+					<input type='password' name='e_password' id='e_password'>
+					<input type='submit' name='e_submit' id='e_submit' value='Login!'>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
