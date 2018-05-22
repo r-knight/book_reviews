@@ -8,8 +8,12 @@ def list(request):
     if 'id' in request.session:
         user = User.objects.get(id=request.session['id'])
     else:
-        #ID -1 is a guest account that was created manually
-        user = User.objects.get(id=-1)
+        try:
+            #ID -1 is a guest account that was created manually
+            user = User.objects.get(id=-1)
+        except:
+            messages.error['Guest features are unavailable. Please log in or register.']
+            return redirect ('/')
     reviews = Review.objects.all()
     books = Book.objects.filter(id__in=[review.book.id for review in reviews])
     return render(request, 'books/books.html', {'recent': recent, 'user': user, 'books': books})
