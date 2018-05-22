@@ -49,7 +49,7 @@
 				<h3>Add a Review:</h3>
 				<form class='review_existing' action='/books/review_existing' method='POST'>
 					{% csrf_token %}
-					<textarea name='review_text' id='review_text' cols=45 rows=5></textarea>
+					<textarea name='review_text' id='review_text' cols=45 rows=5>{{request.session.review_text}}</textarea>
 					<label for='rating'></label>
 					<input type='number' name='rating' id='rating' min=1 max=5 value=3>
 					<input type='submit' id='submit_review' name='submit_review' value='Submit Review'>
