@@ -12,13 +12,13 @@ class UserManager(models.Manager):
     def basic_validator(self, ReqSession, ReqPost):
         errors = {}
         if ReqPost['first_name']:
-            ReqSession['first_name'] = ReqPost['first_name']
+            ReqSession['first_name'] = ReqPost['first_name'].strip()
             if len(ReqSession['first_name']) < 2:
                 errors['first_name_too_short'] = "First name must be 2 or more characters!"
         else:
             errors['first_name_blank'] = "First name must not be blank!"
         if ReqPost['last_name']:
-            ReqSession['last_name'] = ReqPost['last_name']
+            ReqSession['last_name'] = ReqPost['last_name'].strip()
             if len(ReqSession['last_name']) < 2:
                 errors['last_name_too_short'] = "Last name must be 2 or more characters!"
         else:

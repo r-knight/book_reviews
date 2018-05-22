@@ -5,18 +5,22 @@ class BookManager(models.Manager):
     def basic_validator(self, ReqSession, ReqPost):
         errors = {}
         if ReqPost['book_title']:
-            ReqSession['book_title'] = ReqPost['book_title']
+            ReqSession['book_title'] = ReqPost['book_title'].strip()
+            if len(ReqSession['book_title']) < 1:
+                errors['tile_name_short'] = "Title must contain at least one character!"
         else:
             errors['title_blank'] = "Title must not be blank!"
         if ReqPost.get('existing_author') and ReqPost['existing_author'] != "":
             ReqSession['author_id'] = ReqPost['existing_author']
         else:
             if ReqPost['new_author']:
-                ReqSession['author_name'] = ReqPost['new_author']
+                ReqSession['author_name'] = ReqPost['new_author'].strip()
+                if len(ReqSession['author_name']) < 2:
+                    errors['author_name_short'] = "Author's name must contain at least two characters!"
             else:
                 errors['author'] = "You must select an existing author or enter the name of a new author!"
         if ReqPost['review_text']:
-            ReqSession['review_text'] = ReqPost['review_text']
+            ReqSession['review_text'] = ReqPost['review_text'].strip()
             if len(ReqSession['review_text']) < 15:
                 errors['review_length'] = "Your review must be at least 15 characters!"
         else:
@@ -40,7 +44,7 @@ class BookManager(models.Manager):
         else:
             errors['no_book'] = "Data for last viewed book not found!"
         if ReqPost['review_text']:
-            ReqSession['review_text'] = ReqPost['review_text']
+            ReqSession['review_text'] = ReqPost['review_text'].strip()
             if len(ReqSession['review_text']) < 15:
                 errors['review_length'] = "Your review must be at least 15 characters!"
         else:
