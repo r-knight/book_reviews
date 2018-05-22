@@ -8,8 +8,8 @@ def list(request):
     if 'id' in request.session:
         user = User.objects.get(id=request.session['id'])
     else:
-        #ID 0 is a guest account that was created manually
-        user = User.objects.get(id=0)
+        #ID -1 is a guest account that was created manually
+        user = User.objects.get(id=-1)
     reviews = Review.objects.all()
     books = Book.objects.filter(id__in=[review.book.id for review in reviews])
     return render(request, 'books/books.html', {'recent': recent, 'user': user, 'books': books})
@@ -35,7 +35,7 @@ def view_book(request, book_id):
         if 'id' in request.session:
             user = User.objects.get(id=request.session['id'])
         else:
-            user = User.objects.get(id=0)
+            user = User.objects.get(id=-1)
         return render(request, 'books/view_book.html', {'book': book, 'recent': recent, 'user': user})
     else:
         response = "Book with ID " + str(book_id) + "not found.<a href='/books/list'>Back to list</a>"
@@ -44,8 +44,8 @@ def add(request):
     if 'id' in request.session:
         user = User.objects.get(id=request.session['id'])
     else:
-        #ID 0 is a guest account that was created manually
-        user = User.objects.get(id=0)
+        #ID -1 is a guest account that was created manually
+        user = User.objects.get(id=-1)
     authors = Author.objects.all()
     return render(request, 'books/add.html', {'user': user, 'authors':authors})
 def process_book(request):

@@ -48,7 +48,7 @@ def logout(request):
     return redirect('/')
 def view_user(request, user_id):
     if 'id' in request.session:
-        if user_id == 0:
+        if user_id == -1:
             #redirect to books list if attempting to view the profile of the Guest account-
             messages.error(request, "You don't have permission to view that page.")
             return redirect('/books/list')

@@ -27,7 +27,7 @@
 					{% for review in recent %}
 						<div class='book_review'>
 							<p>{{review.rating}}/5</p>
-							{% if not review.reviewer.id == 0 %}
+							{% if not review.reviewer.id == -1 %}
 								<p><a href='/users/view/{{review.reviewer.id}}'>{{review.reviewer.first_name}}</a> says: {{review.content}}</p>
 								<p>Posted on {{review.created_at}}</p>
                                 {% if not review.created_at == review.updated_at %}

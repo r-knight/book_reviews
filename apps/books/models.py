@@ -77,7 +77,7 @@ class BookManager(models.Manager):
         if 'id' in ReqSession:
             user = User.objects.get(id=ReqSession['id'])
         else:
-            user = User.objects.get(id=0)
+            user = User.objects.get(id=-1)
         review = Review(content = ReqSession['review_text'], book = book, reviewer=user, rating=ReqSession['rating'])
         review.save()
 
@@ -94,7 +94,7 @@ class BookManager(models.Manager):
         if 'id' in ReqSession:
             user = User.objects.get(id=ReqSession['id'])
         else:
-            user = User.objects.get(id=0) #saves as guest account
+            user = User.objects.get(id=-1) #saves as guest account
         if 'book' in ReqSession:
             book = Book.objects.get(id=ReqSession['book'])
         else:
